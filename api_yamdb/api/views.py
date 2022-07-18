@@ -9,14 +9,13 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from api_yamdb.settings import ADMIN_EMAIL
 from api import serializers
-from .filters import TitlesFilter
-from .permissions import (IsAdmin,
-                          IsAdminOrReadOnly,
-                          IsAuthorOrAdminOrReadOnly)
-from .viewsets import CreateDeleteListViewset
+from api_yamdb.settings import ADMIN_EMAIL
 from reviews import models
+
+from .filters import TitlesFilter
+from .permissions import IsAdmin, IsAdminOrReadOnly, IsAuthorOrAdminOrReadOnly
+from .viewsets import CreateDeleteListViewset
 
 
 class CreateProfileView(generics.CreateAPIView):
@@ -106,6 +105,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
             )
             serializer = self.get_serializer(profile)
             return Response(serializer.data, status=status.HTTP_200_OK)
+
         if request.method == 'PATCH':
             serializer = serializers.ProfileSerializerAdmin(
                 request.user,
@@ -115,6 +115,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
             serializer.is_valid(raise_exception=True)
             serializer.save(role=request.user.role)
             return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return None
 
 
 class CategoryViewSet(CreateDeleteListViewset):
@@ -147,8 +149,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         title_id = self.kwargs.get('title_id')
-        queryset = models.Review.objects.filter(title=title_id)
-        return queryset
+        return models.Review.objects.filter(title=title_id)
 
     def perform_create(self, serializer):
         title_id = self.kwargs.get('title_id')
@@ -164,10 +165,9 @@ class CommentViewSet(viewsets.ModelViewSet):
         title_id = self.kwargs.get('title_id')
         review_id = self.kwargs.get('review_id')
         review = get_object_or_404(models.Review, id=review_id)
-        new_queryset = review.comments.filter(
+        return review.comments.filter(
             review=review_id,
             review__title=title_id)
-        return new_queryset
 
     def perform_create(self, serializer):
         title_id = self.kwargs.get('title_id')
