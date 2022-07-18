@@ -1,3 +1,4 @@
+from api import serializers
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.db import IntegrityError
@@ -8,10 +9,9 @@ from rest_framework import filters, generics, permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-
-from api import serializers
-from api_yamdb.settings import ADMIN_EMAIL
 from reviews import models
+
+from api_yamdb.settings import ADMIN_EMAIL
 
 from .filters import TitlesFilter
 from .permissions import IsAdmin, IsAdminOrReadOnly, IsAuthorOrAdminOrReadOnly
