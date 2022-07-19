@@ -9,7 +9,7 @@ services:
 
  web:
    build:
-     image: sayyod1981/infra:latest
+     image: sayyod1981/yamdb_final:latest
    restart: always
    volumes:
      - static_value:/app/static/
