@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: /api_yamdb
+        working-directory: ./api_yamdb
     needs: tests
     steps:
       - name: Check out the repo
@@ -47,7 +47,6 @@ jobs:
       - name: Push to Docker Hub
         uses: docker/build-push-action@v3
         with:
-          context: "{{defaultContext}}:api_yamdb"
           push: true
           tags: sayyod1981/infra:latest
   
