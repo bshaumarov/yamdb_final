@@ -8,9 +8,9 @@ This docker image contains API for project called 'yamdb'
 * PyJWT: 2.1.0
 
 ## To test Docker image functionality please, connect to below links -)
-[API interface](http://158.160.4.90/api/v1/)
-[Admin interface](http://158.160.4.90/admin)
-[Documantion link](http://158.160.4.90/redoc)
+* [API interface](http://158.160.4.90/api/v1/)
+* [Admin interface](http://158.160.4.90/admin)
+* [Documantion link](http://158.160.4.90/redoc)
 
 
 ## Author
